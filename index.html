@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職涯釐清工具｜心世界芙蘿拉</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;background:#FAF7F4;color:#2C2C2C;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem 4rem}
+  .wrap{width:100%;max-width:520px}
+  .screen{display:none}.screen.active{display:block}
+
+  .brand{font-size:11px;color:#999;letter-spacing:.09em;text-transform:uppercase;margin-bottom:1.75rem}
+  .hero-title{font-size:28px;font-weight:600;color:#1C1C1C;line-height:1.35;margin-bottom:.75rem}
+  .hero-sub{font-size:15px;color:#666;line-height:1.8;margin-bottom:1.75rem}
+  .highlight{color:#C8534A;font-weight:500}
+
+  .feature-list{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+  .feature-item{display:flex;align-items:center;gap:10px;font-size:14px;color:#666}
+  .feat-dot{width:6px;height:6px;min-width:6px;border-radius:50%;background:#C8534A}
+
+  .card{background:#fff;border:1px solid #EDE8E3;border-radius:16px;padding:1.5rem;margin-bottom:1.25rem}
+  .field-label{font-size:13px;color:#888;margin-bottom:7px}
+  .field-input{width:100%;padding:11px 14px;border:1px solid #DDD;border-radius:10px;font-size:15px;color:#1C1C1C;background:#fff;outline:none;transition:border-color .15s;font-family:inherit;margin-bottom:12px}
+  .field-input:focus{border-color:#C8534A}
+  .field-input:last-of-type{margin-bottom:0}
+  .privacy-note{font-size:12px;color:#AAA;margin-top:12px;line-height:1.6}
+  .email-error{font-size:12px;color:#C8534A;margin-top:5px;display:none}
+
+  .primary-btn{display:block;width:100%;padding:14px;background:#C8534A;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;transition:opacity .15s;font-family:inherit}
+  .primary-btn:hover{opacity:.88}
+  .primary-btn:disabled{opacity:.35;cursor:not-allowed}
+
+  .progress-wrap{margin-bottom:1.75rem}
+  .progress-meta{display:flex;justify-content:space-between;margin-bottom:8px}
+  .p-label{font-size:12px;color:#AAA}
+  .progress-bar{height:3px;background:#EDE8E3;border-radius:2px;overflow:hidden}
+  .progress-fill{height:100%;background:#C8534A;border-radius:2px;transition:width .4s ease}
+
+  .q-text{font-size:20px;font-weight:600;color:#1C1C1C;line-height:1.45;margin-bottom:1.5rem}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1px solid #EDE8E3;border-radius:14px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#C8534A;background:#FDF6F4}
+  .opt.selected{border-color:#C8534A;background:#FDF6F4}
+  .opt-dot{width:18px;height:18px;min-width:18px;border-radius:50%;border:1.5px solid #CCC;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+  .opt.selected .opt-dot{background:#C8534A;border-color:#C8534A}
+  .opt.selected .opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+  .opt-text{font-size:15px;color:#2C2C2C;line-height:1.55}
+
+  .nav{display:flex;justify-content:flex-end;margin-top:1.5rem}
+  .next-btn{padding:11px 24px;border:1px solid #CCC;border-radius:10px;font-size:14px;color:#999;background:transparent;cursor:pointer;transition:all .15s;opacity:.35;pointer-events:none;font-family:inherit}
+  .next-btn.ready{opacity:1;pointer-events:auto;color:#2C2C2C;border-color:#2C2C2C}
+  .next-btn.ready:hover{background:#F5F0EC}
+
+  .r-greeting{font-size:14px;color:#888;margin-bottom:.5rem}
+  .r-tag{display:inline-block;padding:5px 14px;border-radius:8px;font-size:12px;font-weight:600;margin-bottom:.75rem}
+  .tag-a{background:#FAECE7;color:#993C1D}
+  .tag-b{background:#E6F1FB;color:#185FA5}
+  .tag-c{background:#FAEEDA;color:#854F0B}
+  .r-title{font-size:22px;font-weight:600;color:#1C1C1C;margin-bottom:.75rem;line-height:1.4}
+  .r-desc{font-size:15px;color:#666;line-height:1.8;margin-bottom:1.25rem}
+
+  .insight-box{padding:16px 18px;border-left:3px solid #C8534A;background:#FDF6F4;border-radius:0 10px 10px 0;margin-bottom:1.75rem}
+  .insight-lbl{font-size:11px;color:#AAA;letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px}
+  .insight-txt{font-size:15px;color:#2C2C2C;line-height:1.7}
+
+  .cta-card{border:1px solid #EDE8E3;border-radius:16px;padding:1.5rem;background:#fff}
+  .cta-title{font-size:16px;font-weight:600;color:#1C1C1C;margin-bottom:6px}
+  .cta-desc{font-size:14px;color:#888;margin-bottom:1.25rem;line-height:1.65}
+  .cta-note{text-align:center;font-size:12px;color:#BBB;margin-top:10px}
+  .retry-btn{display:block;width:100%;text-align:center;margin-top:1.25rem;font-size:13px;color:#BBB;cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline}
+
+  @media(max-width:480px){
+    .hero-title{font-size:24px}
+    .q-text{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 開場 -->
+  <div class="screen active" id="s-intro">
+    <div class="brand">心世界芙蘿拉 × 職涯釐清工具</div>
+    <div class="hero-title">你現在，<br>卡在哪裡？</div>
+    <div class="hero-sub">6個問題，3分鐘。<br>不是算命——是幫你把心裡已經知道的事，<span class="highlight">說清楚</span>。</div>
+    <div class="feature-list">
+      <div class="feature-item"><div class="feat-dot"></div>找出你的職涯卡點類型</div>
+      <div class="feature-item"><div class="feat-dot"></div>獲得芙蘿拉的個人化洞察</div>
+      <div class="feature-item"><div class="feat-dot"></div>完全免費，3分鐘完成</div>
+    </div>
+    <button class="primary-btn" onclick="goTo('s-email')">開始測驗 →</button>
+  </div>
+
+  <!-- 留 Email -->
+  <div class="screen" id="s-email">
+    <div class="brand">心世界芙蘿拉 × 職涯釐清工具</div>
+    <div class="hero-title">免費獲得你的<br>專屬測驗結果</div>
+    <div class="hero-sub">留下名字和 Email，<br>測驗完成後我會把<span class="highlight">結果和洞察</span>送到你的信箱。</div>
+    <div class="card">
+      <div class="field-label">你的名字（讓我知道怎麼叫你）</div>
+      <input class="field-input" id="user-name" type="text" placeholder="例如：小明、Annie..." oninput="validateForm()" />
+      <div class="field-label">你的 Email</div>
+      <input class="field-input" id="user-email" type="email" placeholder="your@email.com" oninput="validateForm()" />
+      <div class="email-error" id="email-error">請輸入有效的 Email 格式</div>
+      <div class="privacy-note">資料僅用於寄送測驗結果與芙蘿拉的每週電子報，隨時可退訂。</div>
+    </div>
+    <button class="primary-btn" id="submit-btn" onclick="submitEmail()" disabled>進入測驗 →</button>
+  </div>
+
+  <!-- 測驗 -->
+  <div class="screen" id="s-quiz">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="p-label" id="q-num">1 / 6</span>
+        <span class="p-label" id="q-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+    </div>
+    <div class="q-text" id="q-text"></div>
+    <div class="options" id="q-opts"></div>
+    <div class="nav"><button class="next-btn" id="next-btn" onclick="nextQ()">下一題 →</button></div>
+  </div>
+
+  <!-- 結果 -->
+  <div class="screen" id="s-result">
+    <div class="r-greeting" id="r-greeting"></div>
+    <div class="r-tag" id="r-tag"></div>
+    <div class="r-title" id="r-title"></div>
+    <div class="r-desc" id="r-desc"></div>
+    <div class="insight-box">
+      <div class="insight-lbl">芙蘿拉給你的話</div>
+      <div class="insight-txt" id="r-insight"></div>
+    </div>
+    <div class="cta-card">
+      <div class="cta-title">每週一封信，陪你釐清職涯的迷霧</div>
+      <div class="cta-desc">訂閱《芙蘿拉的來信》——每週一封，陪你釐清職涯的迷霧，免費，隨時可退訂。</div>
+      <!-- ↓ 換成你的 Kit 訂閱連結 -->
+      <a class="primary-btn" href="https://thoughtful-author-1467.kit.com/26aea5d47c" target="_blank" style="text-decoration:none;display:block;text-align:center">免費訂閱電子報</a>
+      <div class="cta-note">每週一封 · 免費 · 隨時退訂</div>
+    </div>
+    <button class="retry-btn" onclick="restart()">重新測驗</button>
+  </div>
+
+</div>
+<script>
+const Qs=[
+  {text:"想到「職涯」這兩個字，你第一個浮現的感受是？",opts:[{text:"茫然——不太知道自己想要什麼",t:"A"},{text:"焦慮——知道要改變，但就是沒行動",t:"B"},{text:"疲憊——付出很多，卻好像沒有回報",t:"C"}]},
+  {text:"朋友問你「五年後你在做什麼？」你的第一反應是？",opts:[{text:"完全沒概念，腦中一片空白",t:"A"},{text:"有畫面，但不知道怎麼走到那裡",t:"B"},{text:"說得出來，但感覺離現實越來越遠",t:"C"}]},
+  {text:"面對現在的工作狀況，你最常冒出的念頭是？",opts:[{text:"「我到底適合做什麼？」",t:"A"},{text:"「我知道要做什麼，但就是開始不了」",t:"B"},{text:"「我已經做了很多，但哪裡不對？」",t:"C"}]},
+  {text:"如果有一個小時可以跟諮詢師談，你最想釐清的是？",opts:[{text:"找到一個明確的方向或目標",t:"A"},{text:"突破讓我裹足不前的那個卡點",t:"B"},{text:"搞清楚我的努力為什麼沒有結果",t:"C"}]},
+  {text:"現在的你，比較像哪個畫面？",opts:[{text:"站在十字路口，每條路看起來都差不多",t:"A"},{text:"站在起跑線上，但就是踏不出去",t:"B"},{text:"一直在跑，但不確定跑的方向對不對",t:"C"}]},
+  {text:"最近最讓你睡不著的職涯問題是？",opts:[{text:"我真的不知道自己要什麼",t:"A"},{text:"我明明知道，為什麼就是不行動？",t:"B"},{text:"我這樣努力，到底值不值得？",t:"C"}]}
+];
+const R={
+  A:{tag:"迷霧型",cls:"tag-a",title:"你身處「迷霧」中——前方的路還不清晰",desc:"你現在面對的不是能力問題，而是視野問題。選項太多、或根本看不見選項，都會讓人停在原地。很多有能力的人都在這個階段卡過很久——你不孤單。",insight:"迷霧不會自己散。但通常只需要一次好的對話，你就會發現——答案其實一直都在你心裡，只是還沒被說出來。"},
+  B:{tag:"卡關型",cls:"tag-b",title:"你遇到「卡關」了——知道，卻走不出去",desc:"你不是不知道方向，你是被某個東西擋住了。可能是恐懼、可能是對外界反應的顧慮，可能只是缺少一個「可以的信號」。這種卡，比迷茫更難受——因為你清清楚楚看得見自己走不動。",insight:"卡關的人通常需要的不是更多資訊，而是一個能幫你把卡點說清楚的人。說清楚了，往往就動了。"},
+  C:{tag:"心累型",cls:"tag-c",title:"你陷入「心累」的循環——努力卻看不到終點",desc:"你不懶，你甚至比大多數人更努力。但當付出跟回報長期不對等，人很容易開始懷疑自己。這種懷疑，不是你的問題——是你需要一個人幫你重新看清楚：你到底在往哪裡走。",insight:"努力本身沒有問題。問題通常是方向需要微調，或者你承擔了不屬於你的重量。釐清之後，你會輕很多。"}
+};
+let cur=0,scores={A:0,B:0,C:0},sel=null,userName='';
+
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function validateForm(){
+  const e=document.getElementById('user-email').value;
+  const n=document.getElementById('user-name').value.trim();
+  const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  document.getElementById('email-error').style.display=e&&!ok?'block':'none';
+  document.getElementById('submit-btn').disabled=!(ok&&n.length>0);
+}
+
+function submitEmail(){
+  userName=document.getElementById('user-name').value.trim()||'你';
+  goTo('s-quiz');showQ();
+}
+
+function showQ(){
+  sel=null;
+  const q=Qs[cur];
+  const pct=Math.round((cur/Qs.length)*100);
+  document.getElementById('q-num').textContent=`${cur+1} / ${Qs.length}`;
+  document.getElementById('q-pct').textContent=pct+'%';
+  document.getElementById('progress').style.width=pct+'%';
+  document.getElementById('q-text').textContent=q.text;
+  const nb=document.getElementById('next-btn');
+  nb.classList.remove('ready');
+  nb.textContent=cur===Qs.length-1?'看結果 →':'下一題 →';
+  const c=document.getElementById('q-opts');c.innerHTML='';
+  q.opts.forEach(o=>{
+    const d=document.createElement('div');
+    d.className='opt';
+    d.innerHTML=`<div class="opt-dot"></div><div class="opt-text">${o.text}</div>`;
+    d.onclick=()=>{document.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));d.classList.add('selected');sel=o.t;document.getElementById('next-btn').classList.add('ready')};
+    c.appendChild(d);
+  });
+}
+
+function nextQ(){
+  if(!sel)return;scores[sel]++;cur++;
+  if(cur>=Qs.length)showResult();else showQ();
+}
+
+function showResult(){
+  document.getElementById('progress').style.width='100%';
+  setTimeout(()=>{
+    const t=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+    const r=R[t];
+    document.getElementById('r-greeting').textContent=userName+'，這是你的測驗結果 👇';
+    document.getElementById('r-tag').textContent=r.tag;
+    document.getElementById('r-tag').className='r-tag '+r.cls;
+    document.getElementById('r-title').textContent=r.title;
+    document.getElementById('r-desc').textContent=r.desc;
+    document.getElementById('r-insight').textContent=r.insight;
+    goTo('s-result');
+  },300);
+}
+
+function restart(){
+  cur=0;scores={A:0,B:0,C:0};sel=null;userName='';
+  document.getElementById('user-name').value='';
+  document.getElementById('user-email').value='';
+  document.getElementById('submit-btn').disabled=true;
+  goTo('s-intro');
+}
+</script>
+</body>
+</html>
