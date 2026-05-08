@@ -1,0 +1,207 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  .worksheet-wrap {
+    background: #F8F5FF;
+    border: 1.5px solid #C9B8E8;
+    border-radius: 16px;
+    padding: 28px 28px 20px;
+    max-width: 680px;
+    margin: 0 auto;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .ws-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .ws-en-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #C9A84C;
+    margin-bottom: 6px;
+  }
+  .ws-zh-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #7B5EA7;
+    margin-bottom: 4px;
+  }
+  .ws-subtitle {
+    font-size: 12px;
+    color: #9B8CB8;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .ws-divider {
+    width: 40px;
+    height: 2px;
+    background: #C9A84C;
+    margin: 10px auto 20px;
+    border-radius: 2px;
+  }
+  .ws-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+    border: 1.5px solid #C9B8E8;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .ws-cell {
+    background: #FFFFFF;
+    padding: 16px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .ws-cell:nth-child(1) { border-right: 1.5px solid #C9B8E8; border-bottom: 1.5px solid #C9B8E8; background: #FDFBFF; }
+  .ws-cell:nth-child(2) { border-bottom: 1.5px solid #C9B8E8; background: #FDFBFF; }
+  .ws-cell:nth-child(3) { border-right: 1.5px solid #C9B8E8; background: #F8F5FF; }
+  .ws-cell:nth-child(4) { background: #F8F5FF; }
+  .ws-cell-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ws-cell-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #7B5EA7;
+    color: #F8F5FF;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Cinzel', serif;
+  }
+  .ws-cell-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7B5EA7;
+  }
+  .ws-cell-hint {
+    font-size: 11px;
+    color: #B8A8D0;
+    padding-left: 30px;
+    line-height: 1.5;
+  }
+  .ws-textarea {
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #EDE6F7;
+    background: transparent;
+    resize: none;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: #4A3B6B;
+    padding: 4px 2px;
+    outline: none;
+    min-height: 80px;
+    line-height: 2;
+  }
+  .ws-textarea::placeholder { color: #D4C8E8; font-size: 12px; }
+  .ws-center-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    background: #F8F5FF;
+    border: 1.5px solid #C9B8E8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+    font-size: 13px;
+  }
+  .ws-footer {
+    text-align: center;
+    margin-top: 16px;
+  }
+  .ws-tagline {
+    font-size: 11px;
+    color: #9B8CB8;
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.7;
+    padding: 0 20px;
+  }
+  .ws-brand {
+    margin-top: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #C9A84C;
+  }
+  .ws-grid-wrap {
+    position: relative;
+  }
+  .ws-cross-h {
+    display: none;
+  }
+</style>
+
+<div class="worksheet-wrap">
+  <div class="ws-header">
+    <div class="ws-en-title">FLORA VISTA · DREAM WORKSHEET</div>
+    <div class="ws-zh-title">夢想四宮格</div>
+    <div class="ws-subtitle">不用想會不會達成，先說出來就好</div>
+    <div class="ws-divider"></div>
+  </div>
+
+  <div class="ws-grid-wrap">
+    <div class="ws-grid">
+      <div class="ws-cell">
+        <div class="ws-cell-header">
+          <div class="ws-cell-num">1</div>
+          <div class="ws-cell-title">我的夢想</div>
+        </div>
+        <div class="ws-cell-hint">不限大小，不問可不可能</div>
+        <textarea class="ws-textarea" placeholder="寫下你心底最想要的……"></textarea>
+      </div>
+
+      <div class="ws-cell">
+        <div class="ws-cell-header">
+          <div class="ws-cell-num">2</div>
+          <div class="ws-cell-title">我會做的事</div>
+        </div>
+        <div class="ws-cell-hint">你天生擅長、做起來不費力的事</div>
+        <textarea class="ws-textarea" placeholder="從吃飯喝水走路開始也可以……"></textarea>
+      </div>
+
+      <div class="ws-cell">
+        <div class="ws-cell-header">
+          <div class="ws-cell-num">3</div>
+          <div class="ws-cell-title">五年後我要成為什麼人？</div>
+        </div>
+        <div class="ws-cell-hint">那個你，每天過著什麼樣的生活？</div>
+        <textarea class="ws-textarea" placeholder="描述那個未來的自己……"></textarea>
+      </div>
+
+      <div class="ws-cell">
+        <div class="ws-cell-header">
+          <div class="ws-cell-num">4</div>
+          <div class="ws-cell-title">我的計畫是什麼？</div>
+        </div>
+        <div class="ws-cell-hint">就算只有一個小動作也算</div>
+        <textarea class="ws-textarea" placeholder="第一步，我可以……"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-footer">
+    <div class="ws-tagline">你比你想的，更清楚自己要什麼。<br>只是有時候，還沒看到而已。</div>
+    <div class="ws-brand">心世界芙蘿拉 · Flora Vista</div>
+  </div>
+</div>
