@@ -1,0 +1,244 @@
+
+<style>
+  .code-wrap { background: #1e1e2e; border-radius: 12px; padding: 20px; position: relative; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .code-label { font-family: monospace; font-size: 12px; color: #C9A84C; letter-spacing: 1px; }
+  .copy-btn { background: #7B5EA7; color: #F8F5FF; border: none; border-radius: 8px; padding: 7px 16px; font-size: 12px; cursor: pointer; font-family: sans-serif; }
+  .copy-btn:hover { opacity: 0.85; }
+  pre { overflow-x: auto; font-family: monospace; font-size: 11.5px; line-height: 1.7; color: #cdd6f4; white-space: pre; }
+  .copied { background: #3B6B3B !important; }
+</style>
+
+<div class="code-wrap">
+  <div class="code-header">
+    <span class="code-label">dream-worksheet.html</span>
+    <button class="copy-btn" id="copyBtn" onclick="copyCode()">複製全部</button>
+  </div>
+  <pre id="codeBlock">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-TW"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;夢想四宮格｜心世界芙蘿拉&lt;/title&gt;
+  &lt;meta name="description" content="不用想會不會達成，先說出來就好。"&gt;
+  &lt;meta property="og:title" content="夢想四宮格｜心世界芙蘿拉"&gt;
+  &lt;meta property="og:description" content="你比你想的，更清楚自己要什麼。只是有時候，還沒看到而已。"&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&amp;family=Noto+Sans+TC:wght@400;500&amp;family=Cinzel:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
+  &lt;style&gt;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #EDE6F7; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 32px 16px 48px; font-family: 'Noto Sans TC', sans-serif; }
+    .page { width: 100%; max-width: 680px; }
+    .header { text-align: center; margin-bottom: 28px; }
+    .en-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 3px; color: #C9A84C; margin-bottom: 8px; }
+    .zh-title { font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 600; color: #7B5EA7; margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: #9B8CB8; line-height: 1.7; }
+    .gold-divider { width: 36px; height: 2px; background: #C9A84C; margin: 12px auto 0; border-radius: 2px; }
+    .card { background: #F8F5FF; border: 1.5px solid #C9B8E8; border-radius: 20px; padding: 28px; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid #C9B8E8; border-radius: 14px; overflow: hidden; }
+    .cell { padding: 20px 18px; display: flex; flex-direction: column; gap: 10px; min-height: 200px; }
+    .cell:nth-child(1) { background: #FDFBFF; border-right: 1.5px solid #C9B8E8; border-bottom: 1.5px solid #C9B8E8; }
+    .cell:nth-child(2) { background: #FDFBFF; border-bottom: 1.5px solid #C9B8E8; }
+    .cell:nth-child(3) { background: #F8F5FF; border-right: 1.5px solid #C9B8E8; }
+    .cell:nth-child(4) { background: #F8F5FF; }
+    .cell-header { display: flex; align-items: center; gap: 9px; }
+    .cell-num { width: 24px; height: 24px; border-radius: 50%; background: #7B5EA7; color: #F8F5FF; font-size: 11px; font-family: 'Cinzel', serif; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cell-title { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 600; color: #7B5EA7; line-height: 1.4; }
+    .cell-hint { font-size: 11px; color: #B8A8D0; padding-left: 33px; line-height: 1.6; }
+    textarea { flex: 1; border: none; border-bottom: 1px solid #EDE6F7; background: transparent; resize: none; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; color: #4A3B6B; padding: 4px 2px; outline: none; line-height: 2; min-height: 90px; width: 100%; }
+    textarea::placeholder { color: #D4C8E8; font-size: 12px; }
+    textarea:focus { border-bottom-color: #7B5EA7; }
+    .tagline-block { text-align: center; padding: 20px 24px 4px; }
+    .tagline { font-family: 'Noto Serif TC', serif; font-size: 13px; color: #7B5EA7; line-height: 1.9; }
+    .brand-name { margin-top: 10px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px; color: #C9A84C; }
+    .btn-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 24px; border-radius: 50px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; cursor: pointer; transition: opacity 0.2s; text-decoration: none; border: none; }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: #7B5EA7; color: #F8F5FF; }
+    .btn-ghost { background: transparent; color: #7B5EA7; border: 1.5px solid #C9B8E8; }
+    .cta-block { text-align: center; background: #F8F5FF; border: 1.5px solid #EDE6F7; border-radius: 16px; padding: 24px 28px; margin-bottom: 24px; }
+    .cta-question { font-family: 'Noto Serif TC', serif; font-size: 15px; color: #7B5EA7; margin-bottom: 6px; line-height: 1.7; }
+    .cta-sub { font-size: 12px; color: #9B8CB8; margin-bottom: 18px; line-height: 1.7; }
+    .cta-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .footer { text-align: center; font-size: 11px; color: #B8A8D0; line-height: 2; }
+    .footer a { color: #9B8CB8; text-decoration: none; }
+    .footer a:hover { color: #7B5EA7; }
+    @media print { body { background: white; padding: 0; } .btn-row, .cta-block, .footer { display: none; } textarea { border-bottom: 1px solid #D4C8E8; } }
+    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) { border-right: none; border-bottom: 1.5px solid #C9B8E8; } .zh-title { font-size: 22px; } }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="page"&gt;
+    &lt;div class="header"&gt;
+      &lt;div class="en-label"&gt;FLORA VISTA · DREAM WORKSHEET&lt;/div&gt;
+      &lt;div class="zh-title"&gt;夢想四宮格&lt;/div&gt;
+      &lt;div class="subtitle"&gt;不用想會不會達成&lt;br&gt;有夢最美，說出來才會成真&lt;/div&gt;
+      &lt;div class="gold-divider"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="grid"&gt;
+        &lt;div class="cell"&gt;
+          &lt;div class="cell-header"&gt;&lt;div class="cell-num"&gt;1&lt;/div&gt;&lt;div class="cell-title"&gt;我的夢想&lt;/div&gt;&lt;/div&gt;
+          &lt;div class="cell-hint"&gt;不限大小，不問可不可能&lt;/div&gt;
+          &lt;textarea placeholder="寫下你心底最想要的……"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class="cell"&gt;
+          &lt;div class="cell-header"&gt;&lt;div class="cell-num"&gt;2&lt;/div&gt;&lt;div class="cell-title"&gt;我會做的事&lt;/div&gt;&lt;/div&gt;
+          &lt;div class="cell-hint"&gt;你天生擅長、做起來不費力的事&lt;br&gt;從吃飯喝水走路開始也可以&lt;/div&gt;
+          &lt;textarea placeholder="寫下你做起來自在的事……"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class="cell"&gt;
+          &lt;div class="cell-header"&gt;&lt;div class="cell-num"&gt;3&lt;/div&gt;&lt;div class="cell-title"&gt;五年後我要成為什麼人？&lt;/div&gt;&lt;/div&gt;
+          &lt;div class="cell-hint"&gt;那個你，每天過著什麼樣的生活？&lt;/div&gt;
+          &lt;textarea placeholder="描述那個未來的自己……"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class="cell"&gt;
+          &lt;div class="cell-header"&gt;&lt;div class="cell-num"&gt;4&lt;/div&gt;&lt;div class="cell-title"&gt;我的計畫是什麼？&lt;/div&gt;&lt;/div&gt;
+          &lt;div class="cell-hint"&gt;就算只有一個小動作也算&lt;/div&gt;
+          &lt;textarea placeholder="第一步，我可以……"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="tagline-block"&gt;
+        &lt;div class="tagline"&gt;你比你想的，更清楚自己要什麼。&lt;br&gt;只是有時候，還沒看到而已。&lt;/div&gt;
+        &lt;div class="brand-name"&gt;心世界芙蘿拉 · Flora Vista&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="btn-row"&gt;
+      &lt;button class="btn btn-primary" onclick="window.print()"&gt;🖨 列印 / 存成 PDF&lt;/button&gt;
+      &lt;a class="btn btn-ghost" href="https://floracy0120.github.io/career-check/" target="_blank"&gt;做職涯方向測驗 →&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="cta-block"&gt;
+      &lt;div class="cta-question"&gt;寫完之後，還是有點卡？&lt;/div&gt;
+      &lt;div class="cta-sub"&gt;有時候，答案需要有人陪你一起看清楚。&lt;br&gt;芙蘿拉每週透過電子報，陪你問自己更深的問題。&lt;/div&gt;
+      &lt;div class="cta-links"&gt;
+        &lt;a class="btn btn-primary" href="https://thoughtful-author-1467.kit.com/26aea5d47c" target="_blank"&gt;訂閱《芙蘿拉的來信》&lt;/a&gt;
+        &lt;a class="btn btn-ghost" href="https://forms.gle/VZHtdif9NxjtuHsf8" target="_blank"&gt;預約 1 對 1 諮詢&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="footer"&gt;
+      &lt;a href="https://portaly.cc/Flora123" target="_blank"&gt;心世界芙蘿拉&lt;/a&gt;｜
+      &lt;a href="https://open.firstory.me/user/flora123/platforms" target="_blank"&gt;Podcast 職場塔羅師芙蘿拉&lt;/a&gt;&lt;br&gt;
+      © Flora Vista · 心世界有限公司
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<script>
+function copyCode() {
+  const raw = `<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夢想四宮格｜心世界芙蘿拉</title>
+  <meta name="description" content="不用想會不會達成，先說出來就好。">
+  <meta property="og:title" content="夢想四宮格｜心世界芙蘿拉">
+  <meta property="og:description" content="你比你想的，更清楚自己要什麼。只是有時候，還沒看到而已。">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #EDE6F7; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 32px 16px 48px; font-family: 'Noto Sans TC', sans-serif; }
+    .page { width: 100%; max-width: 680px; }
+    .header { text-align: center; margin-bottom: 28px; }
+    .en-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 3px; color: #C9A84C; margin-bottom: 8px; }
+    .zh-title { font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 600; color: #7B5EA7; margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: #9B8CB8; line-height: 1.7; }
+    .gold-divider { width: 36px; height: 2px; background: #C9A84C; margin: 12px auto 0; border-radius: 2px; }
+    .card { background: #F8F5FF; border: 1.5px solid #C9B8E8; border-radius: 20px; padding: 28px; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid #C9B8E8; border-radius: 14px; overflow: hidden; }
+    .cell { padding: 20px 18px; display: flex; flex-direction: column; gap: 10px; min-height: 200px; }
+    .cell:nth-child(1) { background: #FDFBFF; border-right: 1.5px solid #C9B8E8; border-bottom: 1.5px solid #C9B8E8; }
+    .cell:nth-child(2) { background: #FDFBFF; border-bottom: 1.5px solid #C9B8E8; }
+    .cell:nth-child(3) { background: #F8F5FF; border-right: 1.5px solid #C9B8E8; }
+    .cell:nth-child(4) { background: #F8F5FF; }
+    .cell-header { display: flex; align-items: center; gap: 9px; }
+    .cell-num { width: 24px; height: 24px; border-radius: 50%; background: #7B5EA7; color: #F8F5FF; font-size: 11px; font-family: 'Cinzel', serif; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cell-title { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 600; color: #7B5EA7; line-height: 1.4; }
+    .cell-hint { font-size: 11px; color: #B8A8D0; padding-left: 33px; line-height: 1.6; }
+    textarea { flex: 1; border: none; border-bottom: 1px solid #EDE6F7; background: transparent; resize: none; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; color: #4A3B6B; padding: 4px 2px; outline: none; line-height: 2; min-height: 90px; width: 100%; }
+    textarea::placeholder { color: #D4C8E8; font-size: 12px; }
+    textarea:focus { border-bottom-color: #7B5EA7; }
+    .tagline-block { text-align: center; padding: 20px 24px 4px; }
+    .tagline { font-family: 'Noto Serif TC', serif; font-size: 13px; color: #7B5EA7; line-height: 1.9; }
+    .brand-name { margin-top: 10px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px; color: #C9A84C; }
+    .btn-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 24px; border-radius: 50px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; cursor: pointer; transition: opacity 0.2s; text-decoration: none; border: none; }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: #7B5EA7; color: #F8F5FF; }
+    .btn-ghost { background: transparent; color: #7B5EA7; border: 1.5px solid #C9B8E8; }
+    .cta-block { text-align: center; background: #F8F5FF; border: 1.5px solid #EDE6F7; border-radius: 16px; padding: 24px 28px; margin-bottom: 24px; }
+    .cta-question { font-family: 'Noto Serif TC', serif; font-size: 15px; color: #7B5EA7; margin-bottom: 6px; line-height: 1.7; }
+    .cta-sub { font-size: 12px; color: #9B8CB8; margin-bottom: 18px; line-height: 1.7; }
+    .cta-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .footer { text-align: center; font-size: 11px; color: #B8A8D0; line-height: 2; }
+    .footer a { color: #9B8CB8; text-decoration: none; }
+    .footer a:hover { color: #7B5EA7; }
+    @media print { body { background: white; padding: 0; } .btn-row, .cta-block, .footer { display: none; } textarea { border-bottom: 1px solid #D4C8E8; } }
+    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) { border-right: none; border-bottom: 1.5px solid #C9B8E8; } .zh-title { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="en-label">FLORA VISTA · DREAM WORKSHEET</div>
+      <div class="zh-title">夢想四宮格</div>
+      <div class="subtitle">不用想會不會達成<br>有夢最美，說出來才會成真</div>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="card">
+      <div class="grid">
+        <div class="cell">
+          <div class="cell-header"><div class="cell-num">1</div><div class="cell-title">我的夢想</div></div>
+          <div class="cell-hint">不限大小，不問可不可能</div>
+          <textarea placeholder="寫下你心底最想要的……"></textarea>
+        </div>
+        <div class="cell">
+          <div class="cell-header"><div class="cell-num">2</div><div class="cell-title">我會做的事</div></div>
+          <div class="cell-hint">你天生擅長、做起來不費力的事<br>從吃飯喝水走路開始也可以</div>
+          <textarea placeholder="寫下你做起來自在的事……"></textarea>
+        </div>
+        <div class="cell">
+          <div class="cell-header"><div class="cell-num">3</div><div class="cell-title">五年後我要成為什麼人？</div></div>
+          <div class="cell-hint">那個你，每天過著什麼樣的生活？</div>
+          <textarea placeholder="描述那個未來的自己……"></textarea>
+        </div>
+        <div class="cell">
+          <div class="cell-header"><div class="cell-num">4</div><div class="cell-title">我的計畫是什麼？</div></div>
+          <div class="cell-hint">就算只有一個小動作也算</div>
+          <textarea placeholder="第一步，我可以……"></textarea>
+        </div>
+      </div>
+      <div class="tagline-block">
+        <div class="tagline">你比你想的，更清楚自己要什麼。<br>只是有時候，還沒看到而已。</div>
+        <div class="brand-name">心世界芙蘿拉 · Flora Vista</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="window.print()">🖨 列印 / 存成 PDF</button>
+      <a class="btn btn-ghost" href="https://floracy0120.github.io/career-check/" target="_blank">做職涯方向測驗 →</a>
+    </div>
+    <div class="cta-block">
+      <div class="cta-question">寫完之後，還是有點卡？</div>
+      <div class="cta-sub">有時候，答案需要有人陪你一起看清楚。<br>芙蘿拉每週透過電子報，陪你問自己更深的問題。</div>
+      <div class="cta-links">
+        <a class="btn btn-primary" href="https://thoughtful-author-1467.kit.com/26aea5d47c" target="_blank">訂閱《芙蘿拉的來信》</a>
+        <a class="btn btn-ghost" href="https://forms.gle/VZHtdif9NxjtuHsf8" target="_blank">預約 1 對 1 諮詢</a>
+      </div>
+    </div>
+    <div class="footer">
+      <a href="https://portaly.cc/Flora123" target="_blank">心世界芙蘿拉</a>｜
+      <a href="https://open.firstory.me/user/flora123/platforms" target="_blank">Podcast 職場塔羅師芙蘿拉</a><br>
+      © Flora Vista · 心世界有限公司
+    </div>
+  </div>
+</body>
+</html>`;
+  navigator.clipboard.writeText(raw).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ 已複製';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '複製全部'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+</script>
